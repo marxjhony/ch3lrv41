@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: ch3lrv5
+        psr4_prefix: ch3lrv5
         src_path: app

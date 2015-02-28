@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace ch3lrv5;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +17,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $table = 'users';
 
+	protected $guarded = array('id','password_confirmation');
+	
+	public static $rules = array(
+		'name' => 'required|min:5',
+		'email' => 'required|email'
+	);
+	
+	protected $hidden = array('password');
+	
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -31,4 +41,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Get the e-mail address where password reminders are sent.
+	 *
+	 * @return string
+	 */
+	public function getReminderEmail()
+	{
+		return $this->email;
+	}
 }
